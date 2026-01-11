@@ -1,10 +1,16 @@
 # OpenCore Legacy Patcher changelog
 
-## 2.6.0
-- macOS Tahoe 添加AppleHDA声卡驱动支持
-- 暂不支持无线网卡驱动(已屏蔽)
-- 添加macOS Taheo 26 Beta2 Metallib库 - MetallibSupportPkg-26.0-25A5295e.pkg (见附件)
-   - (基于3802显卡驱动未测试)
+## 2.5.0
+- Disable repatching a dirty root volume
+  - Prevents issues if existing patches are partially overwritten
+  - Thanks @crystall1nedev!
+- Add slimmed down patchset for Modern Wireless for macOS Sequoia
+- Increment binaries:
+  - PatcherSupportPkg 1.9.6 - release
+
+## 2.4.1
+- Switch installer source to AppleDB
+  - Resolves missing or incorrect installers showing up when downloading an installer
 
 ## 2.4.0
 - Reduce CPU usage on main UI thread
