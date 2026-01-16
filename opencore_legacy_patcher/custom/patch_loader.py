@@ -47,12 +47,16 @@ def apply_unsupported_host_os_patch():
 def apply_modern_audio_patch():
     monkey_patch.patch_modern_audio()
 
+def apply_validation_check_repatching():
+    monkey_patch.patch_validation_check_repatching()
+
 def apply_patch():
     apply_tahoe_patch()
     apply_unsupported_host_os_patch()
     apply_modern_audio_patch()
     apply_commit_info_patch()
     apply_patch_version()
+    apply_validation_check_repatching()
     apply_modern_wifi_patch()
     patch_legacy_wifi_patch()
     apply_atheros_patch()

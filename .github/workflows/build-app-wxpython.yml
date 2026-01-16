@@ -10,7 +10,7 @@ permissions:
 jobs:
   build:
     name: Build wxPython
-    runs-on: macos-13
+    runs-on: macos-15
     if: github.repository_owner == 'JeoJay127'
 
     env:

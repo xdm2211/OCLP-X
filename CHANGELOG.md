@@ -1,5 +1,10 @@
 # OpenCore Legacy Patcher changelog
 
+## 2.7.0
+- 官方原版所有功能均支持
+- 支持 macOS Tahoe 26 系统 Brcm & Intel 无线网卡 
+- macOS Tahoe 26 添加AppleHDA声卡驱动支持 (从macOS Tahoe 26 Beta 2开始，苹果官方移除了AppleHDA,导致依赖AppleALC的黑苹果声卡无法驱动，通过补丁找回AppleALC声卡驱动支持)
+
 ## 2.5.0
 - Disable repatching a dirty root volume
   - Prevents issues if existing patches are partially overwritten

@@ -24,7 +24,7 @@ Noteworthy features of OpenCore Legacy Patcher:
 * Enables enhanced SATA and NVMe power management on non-Apple storage devices
 * Zero firmware patching required (ie. APFS ROM patching)
 * Graphics acceleration for both Metal and non-Metal GPUs
-* **Enhanced support for IntelWireless Cards on macOS Sequoia(modified version supported)**  
+* **Enhanced support for IntelWireless Cards on macOS Sequoia and macOS Tahoe 26(modified version supported)**  
 * **Added support for Atheros WiFi cards and some legacy Broadcom WiFi card IDs(modified version supported)**
 * **Added AppleHDA audio support (required by AppleALC) for macOS Tahoe 26 Beta 2 (26.0-25A5295e) and later.**
 

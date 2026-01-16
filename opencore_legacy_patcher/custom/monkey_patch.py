@@ -13,15 +13,16 @@ def patch_patcher_version():
     from opencore_legacy_patcher import constants
     from opencore_legacy_patcher.datasets import os_data
     Constants = constants.Constants
-    orig_init = Constants.__init__
+    origin_init = Constants.__init__
     def modified_init(self, *args, **kwargs):
-        orig_init(self, *args, **kwargs)
+        origin_init(self, *args, **kwargs)
         self.copyright_date = "Copyright © 2020-2025 Dortania(Modified by JeoJay)"
         self.patcher_name = "OCLP(Modified by JeoJay)"
         self.patcher_support_pkg_version = "1.9.6" 
         self.url_patcher_support_pkg  = "https://github.com/JeoJay127/PatcherSupportPkg/releases/download/"
         self.guide_link = "https://dortania.github.io/OpenCore-Legacy-Patcher/"
         self.repo_link = f"https://github.com/{CUSTOM_REPO}"
+        self.patcher_version = "2.7.0"
         self.legacy_accel_support = [
             os_data.os_data.big_sur,
             os_data.os_data.monterey,
@@ -30,32 +31,20 @@ def patch_patcher_version():
             os_data.os_data.sequoia,
             os_data.os_data.tahoe,
         ]
-        try:
-            response = requests.get(f'https://raw.githubusercontent.com/{CUSTOM_REPO}/main/CHANGELOG.md')
-            response.raise_for_status()
-            lines = response.text.splitlines()
-            new_version = None
-            for line in lines:
-                if line.startswith('## '):
-                    new_version = line.split(' ')[1]
-                    break
-
-            if new_version:
-                def version_to_tuple(version):
-                    return tuple(map(int, version.split('.')))
-
-                current_version_tuple = version_to_tuple(self.patcher_version)
-                new_version_tuple = version_to_tuple(new_version)
-
-                if new_version_tuple > current_version_tuple:
-                    self.patcher_version = new_version
-
-        except Exception as e:
-            print(f"Failed to fetch the latest version number: {e}")
-            pass
 
     Constants.__init__ = modified_init
     print("Patcher version dynamically set to:", Constants().patcher_version)
+
+def patch_validation_check_repatching():
+
+    from opencore_legacy_patcher.sys_patch.patchsets import HardwarePatchsetDetection
+    origin_validation_check_repatching_is_possible = HardwarePatchsetDetection._validation_check_repatching_is_possible
+    def _validation_check_repatching_is_possible(self) -> bool: 
+        origin_validation_check_repatching_is_possible(self)
+        return False
+
+    HardwarePatchsetDetection._validation_check_repatching_is_possible = _validation_check_repatching_is_possible
+    print("_validation_check_repatching_is_possible method has been patched.")
 
 def patch_commit_info():
 
@@ -84,8 +73,8 @@ def patch_modern_wireless():
         else:
             return f"{self.hardware_variant()}: Modern Wi-Fi"
     def patched_present(self) -> bool:
-        if self._xnu_major >= os_data.tahoe.value:
-            return False
+        # if self._xnu_major >= os_data.tahoe.value:
+        #     return False
         supported_chipsets = {
             device_probe.Broadcom.Chipsets.AirPortBrcm4360,
             device_probe.Broadcom.Chipsets.AirportBrcmNIC,
@@ -125,8 +114,8 @@ def patch_legacy_wireless():
         """
         Targeting Legacy Wireless
         """
-        if self._xnu_major >= os_data.tahoe.value:
-            return False
+        # if self._xnu_major >= os_data.tahoe.value:
+        #     return False
         if (
             isinstance(self._computer.wifi, device_probe.Broadcom)
             and self._computer.wifi.chipset in [device_probe.Broadcom.Chipsets.AirPortBrcm4331, device_probe.Broadcom.Chipsets.AirPortBrcm43224]
